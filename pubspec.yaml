@@ -38,6 +38,7 @@ dependencies:
   # GoRouter is for navigation
   go_router: ^11.1.2
   riverpod_annotation: ^2.2.1
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

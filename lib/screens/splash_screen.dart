@@ -6,6 +6,7 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(body: Text('Splash'));
+    // ref.read(sharedPrefProvider).updateIsFirstAppLaunch();
+    return const Scaffold(body: Center(child: Text('Splash')));
   }
 }

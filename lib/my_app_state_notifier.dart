@@ -6,5 +6,5 @@ part 'my_app_state_notifier.g.dart';
 @riverpod
 class MyAppNotifier extends _$MyAppNotifier {
   @override
-  MyAppState build() => MyAppState(true);
+  MyAppState build() => MyAppState(false);
 }
