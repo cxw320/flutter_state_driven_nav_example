@@ -1,9 +1,10 @@
-import 'package:flutter_global_app/shared_pref/shared_pref_impl.dart';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'providers.g.dart';
 
 @riverpod
-SharedPrefImpl sharedPref(SharedPrefRef ref) {
-  return SharedPrefImpl();
+Future<SharedPreferences> fetchSharedPref(FetchSharedPrefRef ref) async {
+  return SharedPreferences.getInstance();
 }

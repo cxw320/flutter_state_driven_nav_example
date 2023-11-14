@@ -18,23 +18,37 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    final config = ref.watch(fetchSharedPrefProvider);
+    print(config.value?.getBool("isFirstAppLaunch") ?? true);
+    return switch (config) {
+      AsyncError(:final error) => Text('Error: $error'),
+      AsyncData(:final value) =>
+        getMaterialApp(value.getBool("isFirstAppLaunch") ?? true),
+      _ => const CircularProgressIndicator(),
+    };
+  }
+
+  MaterialApp getMaterialApp(bool isFirstAppLaunch) {
     _goRouter = GoRouter(
-      initialLocation: '/',
+      initialLocation: '/init',
       routes: [
         GoRoute(
-          name: 'splash',
-          path: '/',
-          redirect: (context, state) {
-            ref.watch(sharedPrefProvider).isFirstAppLaunch().then((value) {
-              if (value == true) {
-                return "/";
+            name: 'init',
+            path: '/init',
+            redirect: (context, state) {
+              if (isFirstAppLaunch == true) {
+                return "/splash";
               } else {
-                return "/home";
+                return "/login";
               }
-            });
-            return "/";
-          },
+            }),
+        GoRoute(
+          name: 'splash',
+          path: '/splash',
           builder: (BuildContext context, GoRouterState state) {
             return const SplashScreen();
           },
@@ -48,10 +62,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         ),
       ],
     );
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: MaterialApp.router(routerConfig: _goRouter));
+    return MaterialApp.router(routerConfig: _goRouter);
   }
 }
